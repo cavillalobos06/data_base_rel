@@ -104,3 +104,11 @@ insert into detalle_venta values (null, 1,1,4,850000),(null, 2,2,5,350000),
 (null, 3, 3,1,1200000),(null, 4, 4,2,45000),(null, 5, 5,3,850000),(null, 6, 6,4,2500000),
 (null, 7, 7,5,3200000),(null, 8, 8,1,250000),(null, 9, 9,2,3200000),(null, 10, 10,2,650000),
 (null, 11, 11,1,250000),(null, 12, 12,5,220000);
+
+create view detalle_final as 
+SELECT producto.nombre_producto, categoria.nombre as "Categoría", 
+producto.id_categoria FROM producto
+ join categoria on producto.id_categoria = categoria.id;
+ 
+ 
+ select * from detalle_final;
