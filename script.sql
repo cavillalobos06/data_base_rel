@@ -1,3 +1,7 @@
+create database venta;
+
+use venta;
+
 create table vendedor(
 	id int primary key auto_increment,
     nombre varchar(50)
@@ -65,13 +69,38 @@ on update cascade
 
 );
 
+insert into venta values(null,"2026-04-13",1,1,1),(null,"2026-01-19",2,3,2),
+(null,"2026-01-05",3,4,3),(null,"2026-03-26",4,5,2),
+(null,"2026-03-20",5,1,4),(null,"2026-03-17",6,11,5),
+(null,"2026-04-17",7,2,5),(null,"2026-01-09",8,12,5),
+(null,"2026-01-29",9,2,4),(null,"2026-01-05",10,7,2),
+(null,"2026-01-14",11,12,3),(null,"2026-03-08",12,3,5),
+(null,"2026-02-19",13,3,3),(null,"2026-01-18",14,1,5),
+(null,"2026-01-05",15,1,3),(null,"2026-03-17",16,4,3),
+(null,"2026-01-24",17,1,4),(null,"2026-03-25",18,2,2);
+
 create table detalle_venta(
 id int primary key auto_increment,
+id_producto int,
+
+foreign key(id_producto)
+references producto(id)
+on delete restrict
+on update cascade,
+
 id_venta int,
 
 foreign key (id_venta)
 references venta(id)
 on delete restrict
-on update cascade
+on update cascade,
+
+cantidad tinyint,
+precio_unitario decimal
 
 );
+
+insert into detalle_venta values (null, 1,1,4,850000),(null, 2,2,5,350000),
+(null, 3, 3,1,1200000),(null, 4, 4,2,45000),(null, 5, 5,3,850000),(null, 6, 6,4,2500000),
+(null, 7, 7,5,3200000),(null, 8, 8,1,250000),(null, 9, 9,2,3200000),(null, 10, 10,2,650000),
+(null, 11, 11,1,250000),(null, 12, 12,5,220000);
