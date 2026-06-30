@@ -1,0 +1,132 @@
+create table paises(
+	id int primary key auto_increment,
+	Nombre varchar(50)
+);
+
+
+create table ciudades(
+	id int primary key auto_increment,
+	Nombre varchar(50),
+	id_pais int,
+	foreign key (id_pais)
+	references paises(id)
+	on delete cascade
+	on update cascade
+);
+
+
+create table proveedores(
+	id int primary key auto_increment,
+	Nombre varchar(50),
+	Nit varchar(50),
+	Email varchar(50) unique,
+	id_ciudad int,
+	foreign key (id_ciudad)
+	references ciudades(id)
+	on delete restrict
+	on update cascade
+);
+
+
+create table bodegas(
+	id int primary key auto_increment,
+	Nombre varchar(50),
+	id_ciudad int,
+	foreign key (id_ciudad)
+	references ciudades(id)
+	on delete restrict
+	on update cascade,
+	Direccion varchar(50),
+	Nombre_administrador varchar(50)
+);
+
+
+create table categorias(
+	id int primary key auto_increment,
+	Nombre varchar(50),
+	Descripcion varchar(200)
+);
+
+
+create table subcategorias(
+	id int primary key auto_increment,
+	Nombre varchar(50),
+	id_categoria int,
+	foreign key (id_categoria)
+	references categorias(id)
+);
+
+
+create table unidades_de_medida(
+	id int primary key auto_increment,
+	Nombre varchar(50),
+	Abreviatura varchar(5)
+);
+
+
+create table productos(
+	id int primary key auto_increment,
+	Nombre varchar(50),
+	Precio_unitario decimal,
+	id_unidad_de_medida int,
+	foreign key (id_unidad_de_medida)
+	references unidades_de_medida(id)
+	on delete restrict
+	on update cascade,
+	Stock int,
+	id_categoria int,
+	foreign key (id_categoria)
+	references categorias(id)
+	on delete restrict
+	on update cascade
+);
+
+
+create table compras(
+	id int primary key auto_increment,
+	Fecha_venta date,
+	id_proveedor int,
+	foreign key (id_proveedor)
+	references proveedores(id)
+	on delete restrict
+	on update cascade,
+	Monto_total decimal
+);
+
+
+create table detalle_compra(
+	id int primary key auto_increment,
+	id_compra int,
+	foreign key (id_compra)
+	references compras(id)
+	on delete restrict
+	on update cascade,
+
+	id_producto int,
+	foreign key (id_producto)
+	references productos(id)
+	on delete restrict
+	on update cascade,
+
+	Cantidad int,
+	Precio_unitario decimal
+);
+
+
+create table movimientos(
+	id int primary key auto_increment,
+	Fecha_movimiento date,
+	Tipo_movimiento varchar(50),
+	Cantidad int,
+	id_producto int,
+	foreign key (id_producto)
+	references productos(id)
+	on delete restrict
+	on update cascade,
+
+	id_bodega int,
+	foreign key (id_bodega)
+	references bodegas(id)
+	on delete restrict
+	on update cascade
+);
