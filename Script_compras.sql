@@ -3,6 +3,7 @@ create table paises(
 	Nombre varchar(50)
 );
 
+insert into paises values(null, "Colombia");
 
 create table ciudades(
 	id int primary key auto_increment,
@@ -13,6 +14,13 @@ create table ciudades(
 	on delete cascade
 	on update cascade
 );
+
+insert into ciudades values
+(null, "Barranquilla", 1),
+(null, "Bogotá", 1),
+(null, "Medellín", 1),
+(null, "Cali", 1),
+(null, "Bucaramanga", 1);
 
 
 create table proveedores(
@@ -27,6 +35,15 @@ create table proveedores(
 	on update cascade
 );
 
+insert into proveedores values
+(null, "Ferreteria Torres S.A.S.", "900123456-1","ferreteria.torres@gmail.com", 2),
+(null, "Tecno Partes Ltda.", "700345678-5","tecnopartes@empresa.com", 2),
+(null, "Suministros Industriales Del Norte", "901234567-4","suministros.norte@empresa.co", 1),
+(null, "Distribuidora Electronica Medellin", "800987654-2","dist_electronica@gmail.com", 3),
+(null, "Metales y Aleaciones S.A", "890654321-6",null, 5),
+(null, "Plastiflex Cali LTDA.", "860456789-3","plastiflex@cali.com", 4);
+
+select p.nombre, p.Nit, p.Email, ciudades.nombre as ciudad from proveedores p inner join ciudades on p.id_ciudad = ciudades.id;
 
 create table bodegas(
 	id int primary key auto_increment,
@@ -39,6 +56,9 @@ create table bodegas(
 	Direccion varchar(50),
 	Nombre_administrador varchar(50)
 );
+
+insert into bodegas values
+(null, "Bodega Norte Barranquilla", 1, "Calle 80 # 43-20", "María");
 
 
 create table categorias(
