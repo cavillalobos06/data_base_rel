@@ -457,6 +457,7 @@ SELECT
     c.id AS id_compra,
     c.Fecha_venta,
     pr.Nombre AS proveedor,
+    pa.Nombre AS pais_proveedor,
     ci.Nombre AS ciudad_proveedor,
     p.Nombre AS producto,
     cat.Nombre AS categoria,
@@ -465,8 +466,9 @@ SELECT
     (dc.Cantidad * dc.Precio_unitario) AS subtotal,
     b.Nombre AS bodega
 FROM compras c
-JOIN proveedores pr ON c.id_proveedor = pr.id
+JOIN proveedores pr ON c.id_proveedor = pr.id 
 JOIN ciudades ci ON pr.id_ciudad = ci.id
+JOIN paises pa ON ci.id_pais = pa.id
 JOIN detalle_compra dc ON dc.id_compra = c.id
 JOIN productos p ON dc.id_producto = p.id
 JOIN categorias cat ON p.id_categoria = cat.id
